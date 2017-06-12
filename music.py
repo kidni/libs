@@ -57,6 +57,25 @@ class Note():
         else:
             self.accidental = self.accidental[0]
 
+
+    def get_scale(self, scale):
+        if scale not in SCALES:
+            raise Exception(scale + ' is not a valid scale')
+        scale_notes = [self]
+        intervals = SCALES[scale]
+        for interval in intervals:
+            scale_notes.append(self + Interval(interval))
+        return scale_notes
+
+    def get_circle_fifths(self):
+        note = self
+        circle_fifths = [self]
+        for i in range(0, 12):
+            fifth = note.get_scale('Major')[4]
+            note = fifth
+            circle_fifths.append(fifth)
+        return circle_fifths
+
     '''
     Takes the ID of a note and a direction then returns a Note.
     If direction is 'asc' a sharp is returned if needed
@@ -111,5 +130,4 @@ class Interval():
 
 
 if __name__ == '__main__':
-    add = Note('D#') - Interval('M3')
-    print add
+    note = Note('C')
