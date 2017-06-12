@@ -1,3 +1,19 @@
+"""
+>>> print Note('A') + Interval('m3')
+C
+>>> print Note('F#') + Interval('d8')
+F
+>>> print Note('B') + Interval('m2')
+C
+>>> print Note('Eb') + Interval('P5')
+A#
+
+>>> print Note('C') - Interval('m2')
+B
+>>> print Note('Gb') - Interval('d7')
+A
+"""
+
 import re
 
 SCALES = {
@@ -41,12 +57,12 @@ class Note():
         else:
             self.accidental = self.accidental[0]
 
+    '''
+    Takes the ID of a note and a direction then returns a Note.
+    If direction is 'asc' a sharp is returned if needed
+    If direction is 'desc' a flat is returned if needed
+    '''
     def get_closest_tone(self, note_id, direction='asc'):
-        """
-        Takes the ID of a note and a direction then returns a Note.
-        If direction is 'asc' a sharp is returned if needed
-        If direction is 'desc' a flat is returned if needed
-        """
         if note_id in self.tones:
             return Note(self.tones[note_id])
         if direction == 'asc':
