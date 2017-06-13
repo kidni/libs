@@ -1,6 +1,8 @@
 """
 >>> print Note('A') + Interval('m3')
 C
+>>> print Note('C') - Interval('m3')
+A
 >>> print Note('F#') + Interval('d8')
 F
 >>> print Note('B') + Interval('m2')
@@ -67,15 +69,6 @@ class Note():
             scale_notes.append(self + Interval(interval))
         return scale_notes
 
-    def get_circle_fifths(self):
-        note = self
-        circle_fifths = [self]
-        for i in range(0, 12):
-            fifth = note.get_scale('Major')[4]
-            note = fifth
-            circle_fifths.append(fifth)
-        return circle_fifths
-
     '''
     Takes the ID of a note and a direction then returns a Note.
     If direction is 'asc' a sharp is returned if needed
@@ -128,6 +121,15 @@ class Interval():
         self.name = interval[0]
         self.number = int(interval[1])
 
+
+def get_circle_fifths():
+    c_note = Note('C')
+    circle_fifths = [c_note]
+    for i in range(0, 12):
+        fifth = c_note.get_scale('Major')[4]
+        c_note = fifth
+        circle_fifths.append(fifth)
+    return circle_fifths
 
 if __name__ == '__main__':
     note = Note('C')
